@@ -1,0 +1,19 @@
+@startuml
+:Client: << Human >>
+:Responsable: << Human >>
+:Livreur: << Human >>
+:Pizzaiolo: << Human >>
+:Système bancaire: << System >> as bank
+:Points de vente: << System >> as pdv
+
+Client --> SI
+Responsable --> SI
+Livreur --> SI
+Pizzaiolo --> SI
+SI <--> bank
+SI <--> pdv
+
+package OC-Pizza <<Information System>> as SI {
+}
+
+@enduml
