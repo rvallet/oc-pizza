@@ -1,4 +1,35 @@
 @startuml
+:Client: << Human >>
+:Pizzaiolo: << Human >>
+:Responsable: << Human >>
+:Client: << Human >>
+
+:Site Web: << System >> as Web
+:Point de Vente: << System >> as PDV
+:Système bancaire: << System >> as Bank
+
+package "Gestion des Commandes" <<Information System>> as "CDE" #A9A9A9 {
+}
+
+package "Gestion du Stock" <<Information System>> as STK #A9A9A9 {
+}
+
+Client --> CDE
+Pizzaiolo --> CDE
+Responsable --> CDE
+Web --> CDE
+PDV --> CDE
+Bank <..> CDE
+
+Pizzaiolo --> STK
+Responsable --> STK
+Web --> STK
+PDV --> STK
+Bank <..> STK
+
+
+
+/'
 :Main Admin: as Admin
 (Use the application) as (Use)
 
@@ -17,4 +48,5 @@ end note
 note "This note is connected\nto several objects." as N2
 (Start) .. N2
 N2 .. (Use)
+'/
 @enduml

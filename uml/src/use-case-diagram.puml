@@ -1,47 +1,46 @@
 @startuml
-/' Start Exemple '/
-/':Main Admin: as Admin
-(Use the application) as (Use)
-
-User -> (Start)
-User --> (Use)
-
-Admin ---> (Use)
-
-note right of Admin : This is an example.
-
-note right of (Use)
-A note can also
-be on several lines
-end note
-
-note "This note is connected\nto several objects." as N2
-(Start) .. N2
-N2 .. (Use) '/
-/' End Exemple '/
+skinparam sequenceReferenceBorderColor blue
+skinparam sequenceReferenceBackgroundColor red
 /' Start UML Class '/
 Client << Human >>
+/' "Client Web" << Human >> as WebCustomer
+"Client PdV" << Human >> as ShopCustomer
+WebCustomer -|> Client
+ShopCustomer -|> Client'/
+
 Responsable << Human >>
 Livreur << Human >>
 Pizzaiolo << Human >>
-:Stock: << Application >>
 
-Client --> SI
-Responsable --> SI
-Livreur --> SI
-Pizzaiolo --> SI
-SI --> Bank
-SI --> Shop
-SI --> Stock
-Shop --> Bank
+:Point de Vente: << System >> as PDV
 
-package OC-Pizza <<Information System>> as SI {
-}
+/' Effectuer une commande de Pizza '/
+(Effectuer une commande de Pizza) as (setOrder)
+left to right direction
+Client --> (setOrder)
+PDV --> (setOrder)
 
-package Bank <<System>> as Bank {
-}
+/' Consulter une commande de Pizza '/
+(Consulter une commande de Pizza) as (getOrder)
+PDV -> (getOrder)
+Responsable --> (getOrder)
 
-package Points-de-vente <<System>> as Shop {
-}
+/' Préparer une commande de Pizza '/
+(Préparer une commande de Pizza) as (setPrepare)
+Pizzaiolo -> (setPrepare)
+
+/' Effectuer une livraison de Pizza '/
+(Effectuer une livraison de Pizza) as (setDelivery)
+Livreur -> (setDelivery)
+
+/' Consulter une livraison de Pizza '/
+(Consulter une livraison de Pizza) as (getDelivery)
+Responsable --> (getDelivery)
+
+/' Effectuer un paiement '/
+(Effectuer un paiement) as (setPayment)
+Client -> (setPayment)
+
+
 
 @enduml
