@@ -1,0 +1,7 @@
+@startuml
+skinparam sequenceReferenceBorderColor blue
+skinparam sequenceReferenceBackgroundColor red
+/' Start UML Class '/
+
+
+@enduml

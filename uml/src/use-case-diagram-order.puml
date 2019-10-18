@@ -1,0 +1,58 @@
+@startuml
+skinparam sequenceReferenceBorderColor blue
+skinparam sequenceReferenceBackgroundColor red
+/' Start UML Class '/
+left to right direction
+
+actor Client << Human >> as C1
+actor Client << Human >> as C2
+actor Client << Human >> as C3
+
+actor Responsable << Human >> as R1
+actor Responsable << Human >> as R2
+entity "Système bancaire" << System >> as Bank1
+entity "Système bancaire" << System >> as Bank2
+
+Livreur << Human >>
+Pizzaiolo << Human >>
+
+:Point de Vente1: as PDV1
+:Point de Vente2: as PDV2
+:Point de Vente3: as PDV3
+
+/' Effectuer une commande de Pizza '/
+(Effectuer une commande de Pizza) as (setOrder)
+
+C1 --> (setOrder) : Web
+PDV1 --> (setOrder) : PDV, Téléphone
+
+/' Consulter une commande de Pizza '/
+(Consulter une commande de Pizza) as (getOrder)
+PDV2 --> (getOrder) : (liste du PDV)
+R1 --> (getOrder) : liste par PDV
+
+/' Préparer une commande de Pizza '/
+(Préparer une commande de Pizza) as (setPrepare)
+Pizzaiolo --> (setPrepare) : changement statut
+
+/' Effectuer une livraison de Pizza '/
+(Effectuer une livraison de Pizza) as (setDelivery)
+Livreur --> (setDelivery)
+
+/' Consulter une livraison de Pizza '/
+(Consulter une livraison de Pizza) as (getDelivery)
+R2 --> (getDelivery) : (liste par PDV)
+
+PDV3 --> (getDelivery) : (liste du PDV)
+
+/' Effectuer un paiement '/
+(Effectuer un paiement) as (setPayment)
+C2 --> (setPayment) : Web ou PDV
+Bank1 <|. (setPayment) : Débit
+
+/' Annuler une commande '/
+(Annuler une commande) as (delOrder)
+C3 --> (delOrder) : Web ou PDV
+Bank2 <|. (delOrder) : Crédit
+
+@enduml

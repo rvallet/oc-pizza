@@ -1,0 +1,42 @@
+@startuml
+/' Start UML Class '/
+left to right direction
+"Responsable" << Human >> as R1
+"Responsable" << Human >> as R2
+"Responsable" << Human >> as R3
+"Pizzaiolo" << Human >> as P1
+"Pizzaiolo" << Human >> as P2
+:Point de Vente: << Human >> as PDV1
+
+entity "Système bancaire" << System >> as Bank1
+entity "Site Web" << System >> as Web1
+entity "Site Web" << System >> as Web2
+
+/' Consulter le stock des ingrédients par PDV '/
+(Consulter le stock du point de vente) as (getStock)
+R1 --> (getStock)
+
+/' Consulter les recettes de pizzas '/
+(Consulter toutes les recettes de pizzas) as (getAllRecipe)
+P1 --> (getAllRecipe)
+Web1 --> (getAllRecipe)
+
+/' Consulter la liste des pizzas préparables '/
+(Consulter la liste des pizzas préparables) as (getAvailableRecipe)
+P2 --> (getAvailableRecipe)
+Web2 --> (getAvailableRecipe)
+
+/' Passer une commande d'ingrédients '/
+(Passer une commande d'ingrédients) as (setSupplyOrder)
+R2 --> (setSupplyOrder)
+
+/' Consulter une commande d'ingrédients '/
+(Consulter une commande d'ingrédients) as (getSupplyOrder)
+R3 --> (getSupplyOrder)
+
+/' Receptionner une commande d'ingrédients '/
+(Receptionner une commande d'ingrédients) as (setStock)
+(setStock) <.. Bank1 : Débit
+PDV1 --> (setStock)
+
+@enduml
