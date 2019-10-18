@@ -7,22 +7,18 @@ left to right direction
 actor Client << Human >> as C1
 actor Client << Human >> as C2
 actor Client << Human >> as C3
-
 actor Responsable << Human >> as R1
 actor Responsable << Human >> as R2
 entity "Système bancaire" << System >> as Bank1
 entity "Système bancaire" << System >> as Bank2
-
-Livreur << Human >>
-Pizzaiolo << Human >>
-
-:Point de Vente1: as PDV1
-:Point de Vente2: as PDV2
-:Point de Vente3: as PDV3
+actor Livreur << Human >>
+actor Pizzaiolo << Human >>
+actor "Point de Vente" as PDV1
+actor "Point de Vente" as PDV2
+actor "Point de Vente" as PDV3
 
 /' Effectuer une commande de Pizza '/
 (Effectuer une commande de Pizza) as (setOrder)
-
 C1 --> (setOrder) : Web
 PDV1 --> (setOrder) : PDV, Téléphone
 
@@ -37,12 +33,11 @@ Pizzaiolo --> (setPrepare) : changement statut
 
 /' Effectuer une livraison de Pizza '/
 (Effectuer une livraison de Pizza) as (setDelivery)
-Livreur --> (setDelivery)
+Livreur --> (setDelivery) : changement statut
 
 /' Consulter une livraison de Pizza '/
 (Consulter une livraison de Pizza) as (getDelivery)
 R2 --> (getDelivery) : (liste par PDV)
-
 PDV3 --> (getDelivery) : (liste du PDV)
 
 /' Effectuer un paiement '/
