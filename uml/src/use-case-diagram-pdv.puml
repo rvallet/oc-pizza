@@ -1,7 +1,45 @@
 @startuml
-skinparam sequenceReferenceBorderColor blue
-skinparam sequenceReferenceBackgroundColor red
 /' Start UML Class '/
 
+/' Flow Direction '/
+left to right direction
 
+/' Actor and Entity '/
+"Admin" << Human >> as A1
+"Responsable" << Human >> as R1
+
+/' UseCase Relationship '/
+/' Gestion des PDV '/
+usecase setPDV as "
+    Gestion des PDV
+
+    --
+    Création / Suppréssion
+    Mise à jour
+"
+R1 --> (setPDV)
+
+/' Gestion des utilisateurs '/
+usecase setUser as "
+Gestion des utilisateurs
+
+--
+Création/Suppréssion
+Mise à jour
+Attribution profil
+"
+R1 --> (setUser)
+
+/' Gestion des profils utilisateur '/
+usecase setProfile as "
+Gestion des profils utilisateurs
+
+--
+Création/Suppréssion
+Mise à jour
+Gestion des droits
+"
+A1 --> (setProfile)
+
+/' End UML Class '/
 @enduml
