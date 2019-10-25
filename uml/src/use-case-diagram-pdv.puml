@@ -1,9 +1,14 @@
 @startuml
-left to right direction
 /' Start UML Class '/
+
+/' Flow Direction '/
+left to right direction
+
+/' Actor and Entity '/
 "Admin" << Human >> as A1
 "Responsable" << Human >> as R1
 
+/' UseCase Relationship '/
 /' Gestion des PDV '/
 usecase setPDV as "
     Gestion des PDV
@@ -36,4 +41,5 @@ Gestion des droits
 "
 A1 --> (setProfile)
 
+/' End UML Class '/
 @enduml

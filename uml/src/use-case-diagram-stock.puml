@@ -1,6 +1,10 @@
 @startuml
 /' Start UML Class '/
+
+/' Flow Direction '/
 left to right direction
+
+/' Actor and Entity '/
 "Responsable" << Human >> as R1
 "Responsable" << Human >> as R2
 "Responsable" << Human >> as R3
@@ -12,9 +16,16 @@ entity "Système bancaire" << System >> as Bank1
 entity "Site Web" << System >> as Web1
 entity "Site Web" << System >> as Web2
 
-/' Consulter le stock des ingrédients par PDV '/
-(Consulter le stock du point de vente) as (getStock)
-R1 --> (getStock)
+/' Ordering actor and entity '/
+P1 -[hidden] Web1
+Web1 -[hidden] P2
+P2 -[hidden] Web2
+Web2 -[hidden] R1
+R1 -[hidden] R2
+R2 -[hidden] R3
+R3 -[hidden] PDV1
+
+/' UseCase Relationship '/
 
 /' Consulter les recettes de pizzas '/
 (Consulter toutes les recettes de pizzas) as (getAllRecipe)
@@ -25,6 +36,10 @@ Web1 --> (getAllRecipe)
 (Consulter la liste des pizzas préparables) as (getAvailableRecipe)
 P2 --> (getAvailableRecipe)
 Web2 --> (getAvailableRecipe)
+
+/' Consulter le stock des ingrédients par PDV '/
+(Consulter le stock du point de vente) as (getStock)
+R1 --> (getStock)
 
 /' Passer une commande d'ingrédients '/
 (Passer une commande d'ingrédients) as (setSupplyOrder)
@@ -39,4 +54,5 @@ R3 --> (getSupplyOrder)
 (setStock) <.. Bank1 : Débit
 PDV1 --> (setStock)
 
+/' End UML Class '/
 @enduml
