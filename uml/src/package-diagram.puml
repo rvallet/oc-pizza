@@ -1,31 +1,48 @@
 @startuml
-:Client: << Human >>
-:Pizzaiolo: << Human >>
-:Responsable: << Human >>
-:Client: << Human >>
+/' Start UML Class '/
 
-:Site Web: << System >> as Web
-:Point de Vente: << System >> as PDV
-:Système bancaire: << System >> as Bank
+/' Flow Direction '/
+left to right direction
 
+/' Actor and Entity '/
+:Client: << Human >> as C1
+:Pizzaiolo: << Human >> as P1
+:Pizzaiolo: << Human >> as P2
+:Responsable: << Human >> as R1
+:Responsable: << Human >> as R2
+:Client: << Human >> as C2
+
+:Site Web: << System >> as Web1
+:Site Web: << System >> as Web2
+:Point de Vente: << System >> as PDV1
+:Point de Vente: << System >> as PDV2
+:Système bancaire: << System >> as Bank1
+:Système bancaire: << System >> as Bank2
+
+/' Packages '/
 package "Gestion des Commandes" <<Information System>> as "CDE" #A9A9A9 {
 }
 
 package "Gestion du Stock" <<Information System>> as STK #A9A9A9 {
 }
 
-Client --> CDE
-Pizzaiolo --> CDE
-Responsable --> CDE
-Web --> CDE
-PDV --> CDE
-Bank <..> CDE
+/' Ordering actor and entity '/
+CDE -[hidden] STK
 
-Pizzaiolo --> STK
-Responsable --> STK
-Web --> STK
-PDV --> STK
-Bank <..> STK
+/' Relationship CDE '/
+C1 --> CDE
+P1 --> CDE
+R1 --> CDE
+Web1 --> CDE
+PDV1 --> CDE
+CDE --> Bank1
+
+/' Relationship STK '/
+P2 --> STK
+R2 --> STK
+Web2 --> STK
+PDV2 --> STK
+STK --> Bank2
 
 
 
