@@ -11,33 +11,31 @@ left to right direction
 /' UseCase Relationship '/
 /' Gestion des PDV '/
 usecase setPDV as "
-    Gestion des PDV
+    Gère les PDV
 
     --
-    Création / Suppréssion
-    Mise à jour
+    Créé, supprime, archive
+    et met à jour.
 "
 R1 --> (setPDV)
 
 /' Gestion des utilisateurs '/
 usecase setUser as "
-Gestion des utilisateurs
+Gère les utilisateurs
 
 --
-Création/Suppréssion
-Mise à jour
-Attribution profil
+Créé, supprime et met à jour.
+Attribue les profils (droits)
 "
 R1 --> (setUser)
 
 /' Gestion des profils utilisateur '/
 usecase setProfile as "
-Gestion des profils utilisateurs
+Gère les profils utilisateurs
 
 --
-Création/Suppréssion
-Mise à jour
-Gestion des droits
+Créé, supprime et met à jour.
+Gère les droits de chaque profile
 "
 A1 --> (setProfile)
 
