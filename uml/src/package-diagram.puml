@@ -10,7 +10,9 @@ left to right direction
 :Pizzaiolo: << Human >> as P2
 :Responsable: << Human >> as R1
 :Responsable: << Human >> as R2
-:Client: << Human >> as C2
+:Responsable: << Human >> as R3
+:Administrateur: << Human >> as A1
+/':Client: << Human >> as C2'/
 
 :Site Web: << System >> as Web1
 :Site Web: << System >> as Web2
@@ -20,15 +22,8 @@ left to right direction
 :Système bancaire: << System >> as Bank2
 
 /' Packages '/
+
 package "Gestion des Commandes" <<Information System>> as "CDE" #A9A9A9 {
-}
-
-package "Gestion du Stock" <<Information System>> as STK #A9A9A9 {
-}
-
-/' Ordering actor and entity '/
-CDE -[hidden] STK
-
 /' Relationship CDE '/
 C1 --> CDE
 P1 --> CDE
@@ -36,14 +31,29 @@ R1 --> CDE
 Web1 --> CDE
 PDV1 --> CDE
 CDE --> Bank1
+}
 
+package "Gestion du Stock" <<Information System>> as STK #A9A9A9 {
 /' Relationship STK '/
 P2 --> STK
 R2 --> STK
 Web2 --> STK
 PDV2 --> STK
 STK --> Bank2
+}
 
+package "Gestion des Points de Vente" <<Information System>> as PDV #A9A9A9 {
+/' Relationship PDV '/
+R3 --> PDV
+A1 --> PDV
+}
+
+/' Ordering entity '/
+CDE -[hidden]> STK
+STK -[hidden]> PDV
+/'CDE -[hidden]> STK'/
+
+/' Ordering actor '/
 
 
 /'

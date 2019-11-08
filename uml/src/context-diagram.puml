@@ -1,19 +1,32 @@
 @startuml
+/' Start UML Class '/
+/' Flow Direction '/
+
+
+/' Actor and Entity '/
 :Client: << Human >>
 :Responsable: << Human >>
 :Livreur: << Human >>
+:Accueil: <<Human>>
 :Pizzaiolo: << Human >>
 :Système bancaire: << System >> as bank
+package OC-Pizza <<Information System>> as SI #A9A9A9 {
+}
 /':Points de vente: << System >> as pdv'/
 
+/' Ordering actor and entity '/
+Client -[hidden] Accueil
+Accueil -[hidden] Pizzaiolo
+Pizzaiolo -[hidden] Livreur
+Livreur -[hidden] Responsable
+
+/' Context Relationship '/
 Client --> SI
 Responsable --> SI
 Livreur --> SI
+Accueil --> SI
 Pizzaiolo --> SI
 SI <--> bank
-/'SI <--> pdv'/
 
-package OC-Pizza <<Information System>> as SI #A9A9A9 {
-}
-
+/' End UML Class '/
 @enduml
