@@ -1,0 +1,56 @@
+@startuml
+scale 350 width
+[*] --> EnCoursCreation : AjoutPanier()
+
+state EnCoursCreation {
+  [*] --> EnAttentePaiement : PasserCde()
+/'  [*] --> CommandeAnnule'/
+ }
+
+state EnAttentePaiement {
+  [*] --> Idle_PaiementPDV
+  [*] --> Idle_PaiementWEB
+  [*] --> Idle_PaiementLIV
+  Idle_PaiementPDV --> EnCoursPreparation
+  Idle_PaiementLIV --> EnCoursPreparation
+  Idle_PaiementWEB --> PaiementConfirmation : PaiementWEB()
+  PaiementConfirmation --> EnCoursPreparation : ConfirmWEB()
+  EnAttentePaiement --> CommandeAnnule
+}
+
+state EnCoursPreparation {
+  [*] --> Idle_Preparation
+  Idle_Preparation --> CommandeAnnule
+  Idle_Preparation --> Idle_LivraisonEnCours : Prepare()
+  Idle_Preparation --> Idle_RetraitDisponible : Prepare()
+  Idle_LivraisonEnCours --> LivraisonEffectue : Deliver()
+  Idle_RetraitDisponible --> PaiementConfirmation : PaiementPDV()
+  Idle_LivraisonEnCours --> PaiementConfirmation : PaiementLIV()
+}
+
+state LivraisonEffectue {
+LivraisonEffectue : Facture demat compte client
+LivraisonEffectue : Email lien vers facture
+}
+
+state RetraitEffectue {
+RetraitEffectue: Facture demat compte client
+RetraitEffectue: Edition facture sur demande
+}
+
+state PaiementConfirmation {
+PaiementConfirmation : WEB -> EnCoursPreparation
+PaiementConfirmation : LIV -> LivraisonEffectue
+PaiementConfirmation : PDV -> RetraitEffectue
+PaiementConfirmation --> RetraitEffectue : ConfirmPDV()
+PaiementConfirmation --> LivraisonEffectue : ConfirmLIV()
+}
+
+state CommandeAnnule {
+CommandeAnnule : PaiementConfirmation Exist = RBST ou AVOIR
+}
+
+LivraisonEffectue --> [*]
+RetraitEffectue --> [*]
+
+@enduml

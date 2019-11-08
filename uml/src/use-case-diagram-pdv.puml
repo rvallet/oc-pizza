@@ -19,6 +19,17 @@ usecase setPDV as "
 "
 R1 --> (setPDV)
 
+/' Gestion du catalogue produit'/
+usecase setCAT as "
+    Gère le catalogue Produit
+
+    --
+    Créé, supprime, archive
+    et met à jour les recettes.
+    Créé, supprime, archive
+    et met à jour les ingrédients.
+"
+R1 --> (setCAT)
 /' Gestion des utilisateurs '/
 usecase setUser as "
 Gère les utilisateurs
