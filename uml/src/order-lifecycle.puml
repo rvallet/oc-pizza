@@ -16,11 +16,13 @@ state EnAttentePaiement {
   Idle_PaiementWEB --> PaiementConfirmation : PaiementWEB()
   PaiementConfirmation --> EnCoursPreparation : ConfirmWEB()
   EnAttentePaiement --> CommandeAnnule
+  EnAttentePaiement --> CommandeModifie
 }
 
 state EnCoursPreparation {
   [*] --> Idle_Preparation
   Idle_Preparation --> CommandeAnnule
+  Idle_Preparation --> CommandeModifie
   Idle_Preparation --> Idle_LivraisonEnCours : Prepare()
   Idle_Preparation --> Idle_RetraitDisponible : Prepare()
   Idle_LivraisonEnCours --> LivraisonEffectue : Deliver()
@@ -47,7 +49,13 @@ PaiementConfirmation --> LivraisonEffectue : ConfirmLIV()
 }
 
 state CommandeAnnule {
-CommandeAnnule : PaiementConfirmation Exist = RBST ou AVOIR
+CommandeAnnule : PaiementConfirmation Exist = RBST
+}
+
+state CommandeModifie {
+CommandeModifie : PaiementConfirmation Exist = AVOIR
+CommandeModifie --> EnCoursCreation
+CommandeModifie -[HIDDEN]-> CommandeAnnule
 }
 
 LivraisonEffectue --> [*]
