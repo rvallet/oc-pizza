@@ -4,7 +4,12 @@ http://plantuml.com/fr/activity-diagram-legacy
 https://github.com/NanroYahel/P4_Analyse-besoins-pizzerias/blob/master/Livrables/OC%20PIZZA.pdf
 '/
 partition Client {
-  (*) --> "User"
+  (*) --> "AddToBasket()"
+  if "isStockAvailable?" then
+  -->[yes] "Command()"
+  else
+  -->[no] "showAvailablePizzas()"
+
 if "isLoged" then
   ->[true] "ShowPizzaAvailableOnPDV()"
 
@@ -16,43 +21,31 @@ if "isLoged" then
 
      if "OnLinePay?" then
    	-->[yes] "Paiement()"
-   	--> "Page.ConfirmationCde()" as render
+   	--> "Page.ConfirmationCde()" as CMD
    	--> ===PREPARE_ORDER===
      else
    	-->[no] "Idle_Paiement()"
-   	--> render
+   	--> CMD
      endif
 
    else
      -->[false] "AccountCreate()"
-     --> ===PREPARE_ORDER===
    endif
-
-   if "Do redirect?" then
-    ->[yes] "redirect request"
-    --> ==BEFORE_DESTROY===
-   else
-    if "Do Forward?" then
-     -left->[yes] "Forward request"
-     --> ==BEFORE_DESTROY===
-    else
-     -right->[no] "Render page template"
-     --> ==BEFORE_DESTROY===
-    endif
-   endif
-
-   --> "Page.onDestroy()"
-   -->(*)
 }
 
 partition PointDeVente #LightSkyBlue {
-  === S1 === --> Applauds
+  "Command()" --> EnCoursdePrep
+  EnCoursdePrep --> RetraitDisponible
+  EnCoursdePrep --> EnlèvementLivraison
 }
 
 partition Livreur {
-  Bows --> === S2 ===
-  --> WavesArmes
-  Applauds --> === S2 ===
+  EnlèvementLivraison --> LivraisonEnCours
+  LivraisonEnCours --> IDLE_Paiement
+  IDLE_Paiement --> PaiementOk
+  LivraisonEnCours --> PaiementOk
+  PaiementOk --> LivraisonEffectué
+
 }
 
 
