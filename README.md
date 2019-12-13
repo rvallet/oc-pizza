@@ -60,4 +60,4 @@ Un document (PDF, diaporama) â€“ sans formalisme particulier, mais un document Ã
 See also the list of [contributors](https://github.com/rvallet/oc-pizza/contributors) who participated in this project.
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/rvallet/oc-pizza/blob/master/LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/rvallet/oc-pizza/blob/master/LICENSE) file for details
