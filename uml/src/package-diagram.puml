@@ -4,7 +4,7 @@
 /' Flow Direction '/
 left to right direction
 
-/' Actor and Entity '/
+/' Actor '/
 :Client: << Human >> as C1
 :Pizzaiolo: << Human >> as P1
 :Pizzaiolo: << Human >> as P2
@@ -12,8 +12,8 @@ left to right direction
 :Responsable: << Human >> as R2
 :Responsable: << Human >> as R3
 :Administrateur: << Human >> as A1
-/':Client: << Human >> as C2'/
 
+/' Entity '/
 :Site Web: << System >> as Web1
 :Site Web: << System >> as Web2
 :Point de Vente: << System >> as PDV1
@@ -21,59 +21,43 @@ left to right direction
 :Système bancaire: << System >> as Bank1
 :Système bancaire: << System >> as Bank2
 
-/' Packages '/
-
-package "Gestion des Commandes" <<Information System>> as "CDE" #A9A9A9 {
-/' Relationship CDE '/
-C1 --> CDE
-P1 --> CDE
-R1 --> CDE
-Web1 --> CDE
-PDV1 --> CDE
-CDE --> Bank1
+package "SI" as SI {
+    package "Gestion des Commandes" <<Information System>> as "CDE" #A9A9A9 {
+    /' Relationship CDE '/
+    C1 --> CDE
+    P1 --> CDE
+    R1 --> CDE
+    Web1 --> CDE
+    PDV1 --> CDE
+    CDE --> Bank1
+    }
+    package "Gestion du Stock" <<Information System>> as "STK" #A9A9A9 {
+    /' Relationship STK '/
+    P2 --> STK
+    R2 --> STK
+    Web2 --> STK
+    PDV2 --> STK
+    STK --> Bank1
+    }
+    package "Gestion des Points de Vente" <<Information System>> as "PDV" #A9A9A9 {
+    /' Relationship PDV '/
+    R3 --> PDV
+    A1 --> PDV
+    }
+    /' Linking entity '/
+    CDE -[hidden]> STK
+    STK -[hidden]> PDV
 }
 
-package "Gestion du Stock" <<Information System>> as STK #A9A9A9 {
-/' Relationship STK '/
-P2 --> STK
-R2 --> STK
-Web2 --> STK
-PDV2 --> STK
-STK --> Bank2
-}
 
-package "Gestion des Points de Vente" <<Information System>> as PDV #A9A9A9 {
-/' Relationship PDV '/
-R3 --> PDV
-A1 --> PDV
-}
-
-/' Ordering entity '/
-CDE -[hidden]> STK
-STK -[hidden]> PDV
-/'CDE -[hidden]> STK'/
 
 /' Ordering actor '/
+PDV1 -[hidden]> P2
+P2 -[hidden]> R2
+R2 -[hidden]> R3
 
-
-/'
-:Main Admin: as Admin
-(Use the application) as (Use)
-
-User -> (Start)
-User --> (Use)
-
-Admin ---> (Use)
-
-note right of Admin : This is an example.
-
-note right of (Use)
-A note can also
-be on several lines
-end note
-
-note "This note is connected\nto several objects." as N2
-(Start) .. N2
-N2 .. (Use)
-'/
+/' Ordering entity '/
+/'CDE -[hidden]> STK
+STK -[hidden]> PDV
+CDE -[hidden]> STK'/
 @enduml
